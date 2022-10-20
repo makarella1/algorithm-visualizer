@@ -27,5 +27,6 @@ module.exports = {
     "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
+    "react/button-has-type": 0,
   },
 };

@@ -19,7 +19,10 @@
     "paths": {
       "@utils": ["./utils"],
       "@pages": ["./pages"],
-      "@components": ["./components"]
+      "@components": ["./components"],
+      "@ui": ["./components/ui"],
+      "@context": ["./context"],
+      "@hooks": ["./hooks"]
     }
   },
   "include": ["src", ".eslintrc.cjs", "tailwind.config.cjs", "vite.config.ts"],
