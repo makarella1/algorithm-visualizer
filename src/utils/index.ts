@@ -1,3 +1,3 @@
 export * from "./routes";
-export * from "./sorting/sortTypes";
+export * from "./sorting";
 export * from "./styles/getRandomColor";

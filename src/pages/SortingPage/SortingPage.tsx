@@ -8,7 +8,7 @@ import { Outlet, useParams } from "react-router-dom";
 export const SortingPage = () => {
   const params = useParams();
 
-  const { arrayLength, delay, setSettings } = useSortContext();
+  const { arrayLength, delay, setSettings, sort } = useSortContext();
 
   const onLengthChanged = (value: number[]) => {
     if (setSettings) {
@@ -28,15 +28,18 @@ export const SortingPage = () => {
     }
   };
 
-  const sortName = Object.values(params);
+  const sortName = Object.values(params).at(0);
+
+  React.useEffect(() => {
+    if (setSettings && sortName) {
+      setSettings((prevSettings) => ({ ...prevSettings, type: sortName }));
+    }
+  }, [setSettings, sortName]);
 
   return (
     <PageLayout>
-      <h2 className="mb-10 text-center text-3xl font-black capitalize">
-        <span className="text-blue-500">{sortName}</span> Sort
-      </h2>
-      <div className="flex h-4/5 items-center justify-between">
-        <div className="w-[300px]">
+      <div className="flex w-full justify-between">
+        <div className="w-[400px]">
           <p className="text-md mb-4 text-center font-bold">
             &#10024;Choose the right settings and watch the magic happening
             &#10024;
@@ -70,12 +73,10 @@ export const SortingPage = () => {
               </Label.Root>
               <Slider.Root
                 className="relative flex h-5 w-full items-center"
-                defaultValue={[25]}
-                min={5}
-                step={5}
+                defaultValue={[5]}
+                min={1}
                 max={100}
                 onValueChange={onDelayChanged}
-                value={[delay]}
                 id="delay"
               >
                 <Slider.Track className="relative h-1 w-full rounded-full bg-gray-700">
@@ -86,13 +87,24 @@ export const SortingPage = () => {
                 </Slider.Thumb>
               </Slider.Root>
             </div>
-            <button className="mt-8 inline-block rounded-xl bg-pink-600 p-3 font-bold transition-all duration-200 hover:bg-pink-700 active:scale-95">
+            <button
+              className="mt-8 inline-block rounded-xl bg-pink-600 p-3 font-bold transition-all duration-200 hover:bg-pink-700 active:scale-95"
+              onClick={() => {
+                if (sortName) {
+                  sort(sortName);
+                }
+              }}
+            >
               Sort &apos;Em Bars!
             </button>
           </div>
         </div>
-        <Outlet />
+        <h2 className="mb-10 text-center text-3xl font-black capitalize">
+          <span className="text-blue-500">{sortName}</span> Sort
+        </h2>
       </div>
+
+      <Outlet />
     </PageLayout>
   );
 };
