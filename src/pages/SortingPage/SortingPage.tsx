@@ -1,40 +1,48 @@
-import { PageLayout } from "@components";
-import { useSortContext } from "@hooks";
-import * as Label from "@radix-ui/react-label";
-import * as Slider from "@radix-ui/react-slider";
-import React from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { PageLayout } from '@components';
+import { useAppDispatch, useAppSelector } from '@features/hooks';
+import { selectArrayLength, selectDelay } from '@features/selectors';
+import {
+  setArrayItems,
+  sortArrayItems,
+} from '@features/slices/arrayItemsSlice';
+import {
+  setArrayLength,
+  setDelay,
+  setSortingType,
+} from '@features/slices/sortSettingsSlice';
+import * as Label from '@radix-ui/react-label';
+import * as Slider from '@radix-ui/react-slider';
+import { DEFAULT_DELAY, DEFAULT_LENGTH } from '@utils';
+import React from 'react';
+import { Outlet, useParams } from 'react-router-dom';
 
 export const SortingPage = () => {
   const params = useParams();
 
-  const { arrayLength, delay, setSettings, sort } = useSortContext();
+  const dispatch = useAppDispatch();
 
-  const onLengthChanged = (value: number[]) => {
-    if (setSettings) {
-      setSettings((prevSettings) => ({
-        ...prevSettings,
-        arrayLength: value[0],
-      }));
-    }
+  const arrayLength = useAppSelector(selectArrayLength);
+  const delay = useAppSelector(selectDelay);
+
+  const onLengthChanged = ([length]: [number]) => {
+    dispatch(setArrayLength(length));
   };
 
-  const onDelayChanged = (value: number[]) => {
-    if (setSettings) {
-      setSettings((prevSettings) => ({
-        ...prevSettings,
-        delay: value[0],
-      }));
-    }
+  const onDelayChanged = ([delayValue]: [number]) => {
+    dispatch(setDelay(delayValue));
   };
 
   const sortName = Object.values(params).at(0);
 
   React.useEffect(() => {
-    if (setSettings && sortName) {
-      setSettings((prevSettings) => ({ ...prevSettings, type: sortName }));
+    if (sortName) {
+      dispatch(setSortingType(sortName));
     }
-  }, [setSettings, sortName]);
+  }, [sortName, dispatch]);
+
+  React.useEffect(() => {
+    dispatch(setArrayItems());
+  }, [arrayLength, dispatch]);
 
   return (
     <PageLayout>
@@ -51,7 +59,7 @@ export const SortingPage = () => {
               </Label.Root>
               <Slider.Root
                 className="relative flex h-5 w-full items-center"
-                defaultValue={[50]}
+                defaultValue={[DEFAULT_LENGTH]}
                 min={5}
                 step={5}
                 max={200}
@@ -73,10 +81,11 @@ export const SortingPage = () => {
               </Label.Root>
               <Slider.Root
                 className="relative flex h-5 w-full items-center"
-                defaultValue={[5]}
+                defaultValue={[DEFAULT_DELAY]}
                 min={1}
                 max={100}
                 onValueChange={onDelayChanged}
+                value={[delay]}
                 id="delay"
               >
                 <Slider.Track className="relative h-1 w-full rounded-full bg-gray-700">
@@ -91,7 +100,7 @@ export const SortingPage = () => {
               className="mt-8 inline-block rounded-xl bg-pink-600 p-3 font-bold transition-all duration-200 hover:bg-pink-700 active:scale-95"
               onClick={() => {
                 if (sortName) {
-                  sort(sortName);
+                  sortArrayItems(sortName);
                 }
               }}
             >

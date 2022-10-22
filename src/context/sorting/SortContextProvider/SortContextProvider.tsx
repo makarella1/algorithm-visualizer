@@ -1,22 +1,22 @@
-import { getInsertionSortAnimations } from "@utils";
-import React from "react";
+import { getInsertionSortAnimations } from '@utils';
+import React from 'react';
 
 import {
   INITIAL_VALUE,
   ItemsContext,
   ItemsContextType,
-} from "../ItemsContext/ItemsContext";
+} from '../ItemsContext/ItemsContext';
 import {
   INITIAL_SETTINGS,
   SortContext,
   SortingContextType,
-} from "../SortContext/SortContext";
+} from '../SortContext/SortContext';
 
 export const SortContextProvider = ({ children }: React.PropsWithChildren) => {
   const [settings, setSettings] =
     React.useState<SortingContextType>(INITIAL_SETTINGS);
 
-  const [items, setItems] = React.useState<ItemsContextType["items"]>(
+  const [items, setItems] = React.useState<ItemsContextType['items']>(
     INITIAL_VALUE.items
   );
 
@@ -35,8 +35,8 @@ export const SortContextProvider = ({ children }: React.PropsWithChildren) => {
 
       if (firstDiv && secondDiv) {
         setTimeout(() => {
-          firstDiv.style.backgroundColor = "#2563eb";
-          secondDiv.style.backgroundColor = "#2563eb";
+          firstDiv.style.backgroundColor = '#2563eb';
+          secondDiv.style.backgroundColor = '#2563eb';
 
           [firstDiv.style.height, secondDiv.style.height] = [
             secondDiv.style.height,
@@ -44,8 +44,8 @@ export const SortContextProvider = ({ children }: React.PropsWithChildren) => {
           ];
 
           setTimeout(() => {
-            firstDiv.style.backgroundColor = "#fff";
-            secondDiv.style.backgroundColor = "#fff";
+            firstDiv.style.backgroundColor = '#fff';
+            secondDiv.style.backgroundColor = '#fff';
 
             if (index === animations.length - 1) {
               setItems(newItems);
@@ -59,7 +59,7 @@ export const SortContextProvider = ({ children }: React.PropsWithChildren) => {
   const sort = React.useCallback(
     (type: string) => {
       switch (type) {
-        case "insertion": {
+        case 'insertion': {
           const { animations, newItems } = getInsertionSortAnimations(items);
           animateDivs(animations, newItems);
           break;

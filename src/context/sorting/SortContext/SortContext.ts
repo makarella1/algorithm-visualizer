@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from 'react';
 
 export interface SortingContextType {
   arrayLength: number;
@@ -11,7 +11,7 @@ export interface SortingContextType {
 export const INITIAL_SETTINGS: SortingContextType = {
   arrayLength: 50,
   delay: 5,
-  type: "",
+  type: '',
   sort: () => {},
 };
 
