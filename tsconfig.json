@@ -25,10 +25,13 @@
       "@hooks": ["./hooks"],
       "@features/hooks": ["./features/hooks"],
       "@features/selectors": ["./features/selectors"],
-      "@features/slices/arrayItemsSlice": ["./features/slices/arrayItemsSlice"],
       "@features/slices/sortSettingsSlice": [
         "./features/slices/sortSettingsSlice"
       ],
+      "@features/slices/insertionSortSlice": [
+        "./features/slices/insertionSortSlice"
+      ],
+      "@features/slices/arrayItemsSlice": ["./features/slices/arrayItemsSlice"],
       "@store": ["./store/store"]
     }
   },

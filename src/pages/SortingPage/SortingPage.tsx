@@ -1,15 +1,13 @@
 import { PageLayout } from '@components';
 import { useAppDispatch, useAppSelector } from '@features/hooks';
-import { selectArrayLength, selectDelay } from '@features/selectors';
 import {
-  setArrayItems,
-  sortArrayItems,
-} from '@features/slices/arrayItemsSlice';
-import {
-  setArrayLength,
-  setDelay,
-  setSortingType,
-} from '@features/slices/sortSettingsSlice';
+  selectArrayItems,
+  selectArrayLength,
+  selectDelay,
+} from '@features/selectors';
+import { setNewItems } from '@features/slices/arrayItemsSlice';
+import { insertionSort } from '@features/slices/insertionSortSlice';
+import { setArrayLength, setDelay } from '@features/slices/sortSettingsSlice';
 import * as Label from '@radix-ui/react-label';
 import * as Slider from '@radix-ui/react-slider';
 import { DEFAULT_DELAY, DEFAULT_LENGTH } from '@utils';
@@ -23,6 +21,7 @@ export const SortingPage = () => {
 
   const arrayLength = useAppSelector(selectArrayLength);
   const delay = useAppSelector(selectDelay);
+  const arrayToSort = useAppSelector(selectArrayItems);
 
   const onLengthChanged = ([length]: [number]) => {
     dispatch(setArrayLength(length));
@@ -35,13 +34,7 @@ export const SortingPage = () => {
   const sortName = Object.values(params).at(0);
 
   React.useEffect(() => {
-    if (sortName) {
-      dispatch(setSortingType(sortName));
-    }
-  }, [sortName, dispatch]);
-
-  React.useEffect(() => {
-    dispatch(setArrayItems());
+    dispatch(setNewItems(arrayLength));
   }, [arrayLength, dispatch]);
 
   return (
@@ -98,11 +91,7 @@ export const SortingPage = () => {
             </div>
             <button
               className="mt-8 inline-block rounded-xl bg-pink-600 p-3 font-bold transition-all duration-200 hover:bg-pink-700 active:scale-95"
-              onClick={() => {
-                if (sortName) {
-                  sortArrayItems(sortName);
-                }
-              }}
+              onClick={() => dispatch(insertionSort({ arrayToSort, delay }))}
             >
               Sort &apos;Em Bars!
             </button>

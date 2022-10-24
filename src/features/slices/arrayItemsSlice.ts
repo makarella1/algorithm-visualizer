@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { store } from '@store';
 
 interface ArrayItemsState {
   items: number[];
@@ -13,25 +12,20 @@ export const arrayItemsSlice = createSlice({
   name: 'arrayItems',
   initialState,
   reducers: {
-    setArrayItems: (state) => {
+    setNewItems: (state, action: PayloadAction<number>) => {
       state.items = Array.from(
         {
-          length: store.getState().sortSettings.arrayLength,
+          length: action.payload,
         },
         () => Math.floor(Math.random() * 700)
       );
     },
-    sortArrayItems: (state, action: PayloadAction<string>) => {
-      switch (action.payload) {
-        case 'insertion':
-          break;
-        default:
-          break;
-      }
+    setSortedItems: (state, action: PayloadAction<number[]>) => {
+      state.items = action.payload;
     },
   },
 });
 
-export const { setArrayItems, sortArrayItems } = arrayItemsSlice.actions;
+export const { setNewItems, setSortedItems } = arrayItemsSlice.actions;
 
 export default arrayItemsSlice.reducer;

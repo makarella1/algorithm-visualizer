@@ -13,17 +13,24 @@ export default defineConfig({
       '@ui': path.resolve(__dirname, './src/components/ui'),
       '@context': path.resolve(__dirname, './src/context'),
       '@hooks': path.resolve(__dirname, './src/hooks'),
-      '@features/hooks': path.resolve(__dirname, './features/hooks'),
-      '@features/selectors': path.resolve(__dirname, './features/selectors'),
-      '@features/slices/arrayItemsSlice': path.resolve(
+      '@features/hooks': path.resolve(__dirname, './src/features/hooks'),
+      '@features/selectors': path.resolve(
         __dirname,
-        './features/slices/arrayItemsSlice'
+        './src/features/selectors'
       ),
       '@features/slices/sortSettingsSlice': path.resolve(
         __dirname,
-        './features/slices/sortSettingsSlice'
+        './src/features/slices/sortSettingsSlice'
       ),
-      '@store': path.resolve(__dirname, './store/store'),
+      '@features/slices/arrayItemsSlice': path.resolve(
+        __dirname,
+        './src/features/slices/arrayItemsSlice'
+      ),
+      '@store': path.resolve(__dirname, './src/store/store'),
+      '@features/slices/insertionSortSlice': path.resolve(
+        __dirname,
+        './src/features/slices/insertionSortSlice'
+      ),
     },
   },
 });

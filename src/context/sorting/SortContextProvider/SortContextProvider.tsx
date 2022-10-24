@@ -60,8 +60,8 @@ export const SortContextProvider = ({ children }: React.PropsWithChildren) => {
     (type: string) => {
       switch (type) {
         case 'insertion': {
-          const { animations, newItems } = getInsertionSortAnimations(items);
-          animateDivs(animations, newItems);
+          const { animations, sorted } = getInsertionSortAnimations(items);
+          animateDivs(animations, sorted);
           break;
         }
         default:

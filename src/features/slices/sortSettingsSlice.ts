@@ -23,13 +23,9 @@ export const sortSettingsSlice = createSlice({
     setDelay: (state, action: PayloadAction<number>) => {
       state.delay = action.payload;
     },
-    setSortingType: (state, action: PayloadAction<string>) => {
-      state.sortingType = action.payload;
-    },
   },
 });
 
-export const { setArrayLength, setDelay, setSortingType } =
-  sortSettingsSlice.actions;
+export const { setArrayLength, setDelay } = sortSettingsSlice.actions;
 
 export default sortSettingsSlice.reducer;
