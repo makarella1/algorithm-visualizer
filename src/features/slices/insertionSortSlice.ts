@@ -1,40 +1,35 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { RootState } from '@store';
 import { animateInsertionSort, getInsertionSortAnimations } from '@utils';
 
 import { setSortedItems } from './arrayItemsSlice';
+import { setIsSorted, setIsSorting } from './sortSettingsSlice';
 
 interface InserionSortParams {
   arrayToSort: number[];
   delay: number;
 }
 
-const sortArray = createAsyncThunk(
+interface ThunkConfig {
+  state: RootState;
+}
+
+export const animateSorting = createAsyncThunk<
+  Promise<void>,
+  InserionSortParams,
+  ThunkConfig
+>(
   'insertionSort/sort',
-  async ({ delay, arrayToSort }: InserionSortParams, { dispatch }) => {
-    const { animations, sorted } = getInsertionSortAnimations(arrayToSort);
-    const isSorted = await animateInsertionSort(animations, delay);
+  async ({ delay, arrayToSort }, { dispatch, getState }) => {
+    if (!getState().sortSettings.isSorted) {
+      dispatch(setIsSorting(true));
 
-    dispatch(setSortedItems(sorted));
+      const { animations, sorted } = getInsertionSortAnimations(arrayToSort);
+      const isSorted = await animateInsertionSort(animations, delay);
 
-    return isSorted;
+      dispatch(setSortedItems(sorted));
+      dispatch(setIsSorting(false));
+      dispatch(setIsSorted(isSorted));
+    }
   }
 );
-
-export const insertionSortSlice = createSlice({
-  name: 'insertionSort',
-  initialState: {},
-  reducers: {
-    insertionSort: (_, action: PayloadAction<InserionSortParams>) => {
-      const { delay, arrayToSort } = action.payload;
-      const { animations } = getInsertionSortAnimations(arrayToSort);
-      animateInsertionSort(animations, delay);
-    },
-  },
-  extraReducers: {
-    [sortArray.fulfilled]: (state, action) => {},
-  },
-});
-
-export const { insertionSort } = insertionSortSlice.actions;
-
-export default insertionSortSlice.reducer;

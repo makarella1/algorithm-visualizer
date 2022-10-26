@@ -21,7 +21,6 @@
       "@pages": ["./pages"],
       "@components": ["./components"],
       "@ui": ["./components/ui"],
-      "@context": ["./context"],
       "@hooks": ["./hooks"],
       "@features/hooks": ["./features/hooks"],
       "@features/selectors": ["./features/selectors"],

@@ -1,4 +1,10 @@
+import { increaseSortingProgress } from '@features/slices/sortSettingsSlice';
+import { store } from '@store';
+import { INITIAL_DELAY, MAX_PROGRESS } from '@utils';
+
 export const animateInsertionSort = (animations: number[][], delay: number) => {
+  const step = MAX_PROGRESS / animations.length;
+
   return new Promise<boolean>((resolve) => {
     animations.forEach(([first, second], index) => {
       const firstDiv = document.getElementById(`${first}`);
@@ -21,8 +27,10 @@ export const animateInsertionSort = (animations: number[][], delay: number) => {
             if (index === animations.length - 1) {
               resolve(true);
             }
-          }, delay * 2);
-        }, index * delay * 2);
+          }, delay * INITIAL_DELAY);
+
+          store.dispatch(increaseSortingProgress(step));
+        }, index * delay * INITIAL_DELAY);
       }
     });
   });

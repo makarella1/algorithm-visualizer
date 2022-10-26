@@ -4,13 +4,20 @@ import {
   selectArrayItems,
   selectArrayLength,
   selectDelay,
+  selectIsSorting,
+  selectSortingProgress,
 } from '@features/selectors';
 import { setNewItems } from '@features/slices/arrayItemsSlice';
-import { insertionSort } from '@features/slices/insertionSortSlice';
-import { setArrayLength, setDelay } from '@features/slices/sortSettingsSlice';
+import { animateSorting } from '@features/slices/insertionSortSlice';
+import {
+  resetArray,
+  setArrayLength,
+  setDelay,
+} from '@features/slices/sortSettingsSlice';
 import * as Label from '@radix-ui/react-label';
+import * as Progress from '@radix-ui/react-progress';
 import * as Slider from '@radix-ui/react-slider';
-import { DEFAULT_DELAY, DEFAULT_LENGTH } from '@utils';
+import { DEFAULT_DELAY, DEFAULT_LENGTH, MAX_PROGRESS } from '@utils';
 import React from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 
@@ -22,6 +29,8 @@ export const SortingPage = () => {
   const arrayLength = useAppSelector(selectArrayLength);
   const delay = useAppSelector(selectDelay);
   const arrayToSort = useAppSelector(selectArrayItems);
+  const isSorting = useAppSelector(selectIsSorting);
+  const progress = useAppSelector(selectSortingProgress);
 
   const onLengthChanged = ([length]: [number]) => {
     dispatch(setArrayLength(length));
@@ -31,9 +40,14 @@ export const SortingPage = () => {
     dispatch(setDelay(delayValue));
   };
 
+  const onSort = () => {
+    dispatch(animateSorting({ arrayToSort, delay }));
+  };
+
   const sortName = Object.values(params).at(0);
 
   React.useEffect(() => {
+    dispatch(resetArray());
     dispatch(setNewItems(arrayLength));
   }, [arrayLength, dispatch]);
 
@@ -89,12 +103,26 @@ export const SortingPage = () => {
                 </Slider.Thumb>
               </Slider.Root>
             </div>
-            <button
-              className="mt-8 inline-block rounded-xl bg-pink-600 p-3 font-bold transition-all duration-200 hover:bg-pink-700 active:scale-95"
-              onClick={() => dispatch(insertionSort({ arrayToSort, delay }))}
-            >
-              Sort &apos;Em Bars!
-            </button>
+
+            {isSorting ? (
+              <Progress.Root
+                className="relative mx-auto mt-8 h-12 w-full overflow-hidden rounded-full bg-gray-700"
+                style={{ transform: 'translateZ(0)' }}
+                value={MAX_PROGRESS}
+              >
+                <Progress.Indicator
+                  className="h-full w-full bg-white transition-transform"
+                  style={{ transform: `translateX(-${100 - progress}%)` }}
+                />
+              </Progress.Root>
+            ) : (
+              <button
+                className="mt-8 inline-block h-12 rounded-xl bg-pink-700 font-bold transition-all duration-200 hover:bg-pink-800 active:scale-95"
+                onClick={onSort}
+              >
+                Sort &apos;Em Bars!
+              </button>
+            )}
           </div>
         </div>
         <h2 className="mb-10 text-center text-3xl font-black capitalize">
