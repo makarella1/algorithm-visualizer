@@ -4,10 +4,7 @@ import { INITIAL_DELAY, MAX_PROGRESS } from '@utils';
 
 import { AnimateSortParams } from '../types';
 
-export const animateInsertionSort = ({
-  animations,
-  delay,
-}: AnimateSortParams) => {
+export const animateBubbleSort = ({ animations, delay }: AnimateSortParams) => {
   const step = MAX_PROGRESS / animations.length;
 
   return new Promise<boolean>((resolve) => {

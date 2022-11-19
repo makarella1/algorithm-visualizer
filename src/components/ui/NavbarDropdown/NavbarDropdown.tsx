@@ -1,6 +1,6 @@
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
-import React from "react";
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { ChevronDownIcon } from '@radix-ui/react-icons';
+import React from 'react';
 
 export const NavbarDropdown = ({ children }: React.PropsWithChildren) => {
   const [isOpened, setIsOpened] = React.useState(false);
@@ -12,7 +12,7 @@ export const NavbarDropdown = ({ children }: React.PropsWithChildren) => {
           <p>Sorting</p>
           <ChevronDownIcon
             className={`transition-transform duration-200 ${
-              isOpened ? "rotate-180" : "rotate-0"
+              isOpened ? 'rotate-180' : 'rotate-0'
             }`}
           />
         </button>
@@ -21,7 +21,7 @@ export const NavbarDropdown = ({ children }: React.PropsWithChildren) => {
       <DropdownMenu.Portal>
         <DropdownMenu.Content
           sideOffset={8}
-          className="relative w-[200px] animate-dropdown-appear cursor-pointer rounded-lg bg-gray-700 p-1 text-sm text-white"
+          className="relative flex w-[200px] animate-dropdown-appear cursor-pointer flex-col gap-1 rounded-lg bg-gray-700 p-1 text-sm text-white"
         >
           <div className="absolute -top-0.5 left-1/2 -z-10 h-4 w-4 -translate-x-1/2 rotate-45 bg-gray-700" />
           {children}

@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { SortName } from '@utils';
 import { DEFAULT_DELAY, DEFAULT_LENGTH } from '@utils';
 
 interface SortSettingsState {
-  sortingType: string;
+  sortType: string;
   arrayLength: number;
   delay: number;
   isSorting: boolean;
@@ -11,7 +12,7 @@ interface SortSettingsState {
 }
 
 const initialState: SortSettingsState = {
-  sortingType: 'insertion',
+  sortType: 'insertion',
   arrayLength: DEFAULT_LENGTH,
   delay: DEFAULT_DELAY,
   isSorting: false,
@@ -19,13 +20,14 @@ const initialState: SortSettingsState = {
   sortingProgress: 0,
 };
 
-export const sortSettingsSlice = createSlice({
+const sortSettingsSlice = createSlice({
   name: 'sort',
   initialState,
   reducers: {
-    resetArray: (state) => {
+    resetSettings: (state) => {
       state.isSorted = initialState.isSorted;
       state.sortingProgress = initialState.sortingProgress;
+      state.isSorting = initialState.isSorting;
     },
     setArrayLength: (state, action: PayloadAction<number>) => {
       state.arrayLength = action.payload;
@@ -42,16 +44,24 @@ export const sortSettingsSlice = createSlice({
     increaseSortingProgress: (state, action: PayloadAction<number>) => {
       state.sortingProgress += action.payload;
     },
+    setSortingProgress: (state, action: PayloadAction<number>) => {
+      state.sortingProgress = action.payload;
+    },
+    setSortType: (state, action: PayloadAction<SortName>) => {
+      state.sortType = action.payload;
+    },
   },
 });
 
 export const {
-  resetArray,
+  resetSettings,
   setDelay,
   setIsSorting,
   setArrayLength,
   setIsSorted,
   increaseSortingProgress,
+  setSortType,
+  setSortingProgress,
 } = sortSettingsSlice.actions;
 
 export default sortSettingsSlice.reducer;

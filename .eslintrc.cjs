@@ -29,5 +29,9 @@ module.exports = {
     'simple-import-sort/exports': 'error',
     'react/button-has-type': 0,
     'no-param-reassign': 0,
+    '@typescript-eslint/no-non-null-assertion': 0,
+    'react/jsx-no-useless-fragment': 0,
+    'react/require-default-props': 0,
+    'react/jsx-props-no-spreading': 0,
   },
 };

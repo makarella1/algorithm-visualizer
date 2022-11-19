@@ -25,10 +25,19 @@ export default defineConfig({
         __dirname,
         './src/features/slices/arrayItemsSlice'
       ),
-      '@store': path.resolve(__dirname, './src/store/store'),
-      '@features/slices/insertionSortSlice': path.resolve(
+      '@features/slices/sortAnimationsSlice': path.resolve(
         __dirname,
-        './src/features/slices/insertionSortSlice'
+        './src/features/slices/sortAnimationsSlice'
+      ),
+      '@store': path.resolve(__dirname, './src/store/store'),
+      '@utlis/sorting/animations/insertionSort': path.resolve(
+        __dirname,
+        './src/utils/sorting/animations/insertionSort'
+      ),
+      '@features/thunks': path.resolve(__dirname, './src/features/thunks'),
+      '@utils/sorting/animations': path.resolve(
+        __dirname,
+        './src/utils/sorting/animations'
       ),
     },
   },

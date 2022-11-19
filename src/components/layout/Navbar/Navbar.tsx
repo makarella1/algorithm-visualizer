@@ -1,6 +1,6 @@
-import { NavbarDropdown, NavbarDropdownItem } from "@ui";
-import { ROUTES, SORT_TYPES } from "@utils";
-import { nanoid } from "nanoid";
+import { NavbarDropdown, NavbarDropdownItem } from '@ui';
+import { ROUTES, SORT_TYPES } from '@utils';
+import { nanoid } from 'nanoid';
 
 export const Navbar = () => {
   return (
@@ -8,7 +8,7 @@ export const Navbar = () => {
       <NavbarDropdown>
         {SORT_TYPES.map(({ slug, name }) => (
           <NavbarDropdownItem
-            path={`${ROUTES.SORTING}${slug}`}
+            path={`${ROUTES.SORTING}/${slug}`}
             name={name}
             key={nanoid()}
           />

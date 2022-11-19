@@ -2,7 +2,7 @@ import { selectArrayItems } from '@features/selectors';
 import { nanoid } from 'nanoid';
 import { useSelector } from 'react-redux';
 
-export const InsertionSort = () => {
+export const Bars = () => {
   const items = useSelector(selectArrayItems);
 
   return (

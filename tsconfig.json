@@ -27,13 +27,24 @@
       "@features/slices/sortSettingsSlice": [
         "./features/slices/sortSettingsSlice"
       ],
-      "@features/slices/insertionSortSlice": [
-        "./features/slices/insertionSortSlice"
-      ],
       "@features/slices/arrayItemsSlice": ["./features/slices/arrayItemsSlice"],
-      "@store": ["./store/store"]
+      "@features/slices/sortAnimationsSlice": [
+        "./features/slices/sortAnimationsSlice"
+      ],
+      "@store": ["./store/store"],
+      "@utlis/sorting/animations/insertionSort": [
+        "./utils/sorting/animations/insertionSort"
+      ],
+      "@features/thunks": ["./features/thunks"],
+      "@utils/sorting/animations": ["./utils/sorting/animations"]
     }
   },
-  "include": ["src", ".eslintrc.cjs", "tailwind.config.cjs", "vite.config.ts"],
+  "include": [
+    "src",
+    ".eslintrc.cjs",
+    "tailwind.config.cjs",
+    "vite.config.ts",
+    "postcss.config.cjs"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

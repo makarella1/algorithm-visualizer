@@ -1,4 +1,4 @@
-export * from './animations/insertionSort/animateInsertionSort';
-export * from './animations/insertionSort/getInsertionSortAnimations';
 export * from './defaultValues';
+export * from './isSortNameValid';
+export * from './sortAsyncThunk';
 export * from './sortTypes';

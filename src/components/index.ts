@@ -1,3 +1,4 @@
-export * from "./layout";
-export * from "./routes/Root/Root";
-export * from "./sorting/InsertionSort/InsertionSort";
+export * from './ArraySettings/ArraySettings';
+export * from './Bars/Bars';
+export * from './layout';
+export * from './ProtectedSortRoute/ProtectedSortRoute';

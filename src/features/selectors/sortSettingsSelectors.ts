@@ -6,7 +6,7 @@ export const selectArrayLength = (state: RootState) =>
 export const selectDelay = (state: RootState) => state.sortSettings.delay;
 
 export const selectSortingType = (state: RootState) =>
-  state.sortSettings.sortingType;
+  state.sortSettings.sortType;
 
 export const selectIsSorting = (state: RootState) =>
   state.sortSettings.isSorting;

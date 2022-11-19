@@ -1,5 +1,5 @@
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { NavLink } from "react-router-dom";
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { NavLink } from 'react-router-dom';
 
 interface NavbarDropdownItemProps {
   path: string;
